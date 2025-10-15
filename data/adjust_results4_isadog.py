@@ -71,41 +71,29 @@ def adjust_results4_isadog(results_dic, dogfile):
 
     # Reads in dognames from file, 1 name per line & automatically closes file
     with open(dogfile, "r") as infile:
-        # Reads in dognames from first line in file
         line = infile.readline()
-
-        # Processes each line in file until reaching EOF (end-of-file) by 
-        # processing line and adding dognames to dognames_dic with while loop
         while line != "":
-
-         
-            line.strip('\n')
-
-           
+            line = line.strip().lower()
             if line not in dognames_dic:
-                dognames_dic[line]=1
-
+                dognames_dic[line] = 1
             line = infile.readline()
 
+    # Check results against dog names
     for key in results_dic:
+        pet_label = results_dic[key][0]
+        classifier_label = results_dic[key][1]
 
-        # Pet Image Label IS of Dog (e.g. found in dognames_dic)
-        if results_dic[key][0] in dognames_dic:
-            
-            # Classifier Label IS image of Dog (e.g. found in dognames_dic)
-            # appends (1, 1) because both labels are dogs
-            if results_dic[key][1] in dognames_dic:
+        # Pet image label is a dog
+        if pet_label in dognames_dic:
+            # Classifier label is a dog
+            if any(name.strip() in dognames_dic for name in classifier_label.split(',')):
                 results_dic[key].extend((1, 1))
-
             else:
                 results_dic[key].extend((1, 0))
 
-        # Pet Image Label IS NOT a Dog image (e.g. NOT found in dognames_dic)
+        # Pet image label is NOT a dog
         else:
-            
-            if results_dic[key][1] in dognames_dic:
-                results_dic[key].extend((1, 0))
-
+            if any(name.strip() in dognames_dic for name in classifier_label.split(',')):
+                results_dic[key].extend((0, 1))
             else:
                 results_dic[key].extend((0, 0))
-    

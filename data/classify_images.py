@@ -65,12 +65,12 @@ def classify_images(images_dir, results_dic, model):
      Returns:
            None - results_dic is mutable data type so no return needed.         
     """
-   for key in results_dic:
+    for key in results_dic:
        
        
        full_path = images_dir + key
        label = classifier(full_path, model)
-       model_label = str(label)
+       model_label = str(label).lower()
 
        
        model_label.lower().strip()
@@ -84,8 +84,10 @@ def classify_images(images_dir, results_dic, model):
      
        else:
            match_flag = 0
-       results_dic[key][1] = model_label
-       results_dic[key][2] = match_flag
+           
+       results_dic[key].append(model_label)
+       results_dic[key].append(match_flag)
+        
 
       
       

@@ -49,7 +49,7 @@ def get_pet_labels(image_dir):
  
     # Creates empty dictionary for the results (pet labels, etc.)
     results_dic = dict()
-    for idx in range(0, len(in_files), 1):
+    for idx in range(len(in_files)):
        
        # Skips file if starts with . (like .DS_Store of Mac OSX) because it 
        # isn't an pet image file
@@ -57,11 +57,11 @@ def get_pet_labels(image_dir):
            
            # Creates temporary label variable to hold pet label name extracted 
            pet_label = ""
-           word_list = in_files[idx].lower().strip('_')
+           word_list = in_files[idx].lower().split('.')[0].split('_')
            for word in word_list:
                 if word.isalpha():
-                    pet_label = pet_label + word + ' '
-                pet_label = pet_label.strip()
+                    pet_label += word + " "
+           pet_label = pet_label.strip()
 
            # If filename doesn't already exist in dictionary add it and it's
            # pet label - otherwise print an error message because indicates 
