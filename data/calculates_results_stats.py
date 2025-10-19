@@ -128,11 +128,11 @@ def calculates_results_stats(results_dic):
 
     
     # Calculates % correct dogs
-    results_stats_dic['pct_correct_dogs'] = (results_stats_dic['n_correct_dogs']*100)/results_stats_dic['n_images']
+    results_stats_dic['pct_correct_dogs'] = (results_stats_dic['n_correct_dogs']*100)/results_stats_dic['n_dogs_img']
 
    
     # Calculates % correct breed of dog
-    results_stats_dic['pct_correct_breed'] = (results_stats_dic['n_correct_breed']*100)/results_stats_dic['n_images']
+    results_stats_dic['pct_correct_breed'] = (results_stats_dic['n_correct_breed']*100)/results_stats_dic['n_dogs_img']
 
 
     # Calculates % correct not-a-dog images
